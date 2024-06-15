@@ -47,7 +47,9 @@ a simple data warehouse architecture, project structure, and developer workflow.
     - no credit card required
 - does motherduck allow you to create separate DB's and schemas within them?
 
-### project components
+### project
+
+#### project components
 
 - **orchestration**
     - airflow
@@ -71,4 +73,64 @@ a simple data warehouse architecture, project structure, and developer workflow.
         - can we emulate using docker? how will github actions connect?
         - ideally want this whole thing to run on free tier, even better if 
             it doesn't require setting up any cloud resources
+
+#### project architecture
+
+- prod/dev split
+    - two datawarehouses
+        - datawarehouse
+        - datawarehouse_dev
+    - two airflow instances???
+
+#### data warehouse schemas
+
+schemas could represent environments (e.g. `max_dev.model` for max's development environment)
+or pipeline stages (staging, intermediate, dimension, fact, marts). i'm not sure what is the
+best answer yet.
+
+i'm leaning towards schemas for pipeline stages.
+
+- what should schemas represent?
+    - separate schemas for raw, staging, intermediate, and mart pipeline stages?
+    - dbt advises naming scheme for models `stg_datasource__tablename.sql`
+    - and config files define where it's materialised
+    - could materialise as `stg.xero__fct_payments_agg` for example?
+- example 1
+    - data lake (not a schema)
+    - `raw`
+        - temporary tables to load data from data lake
+	- `stg` staging
+        - *naming convention*: file `stg_[source]__[entity]s.sql` materialized as `stg.[source]__[entity]s.sql`
+        - *permitted operations*: renaming, type casting, basic computations (cents to dollars), categorising
+        - 1:1 relationship, one stg model for each source
+        - *materialized as*: views
+	- `int` intermediate
+        - *naming convention*: file `int_[entity]s_[verb]s.sql` materialized as `int.[entity]s_[verb]s.sql` 
+        - *permitted operations*: structural simplification, re-graining, isolating complex operations
+        - *materialised as*: ephemeral, or as views in custom schema
+        - *examples of verbs*: pivoted, aggregated_to_user, joined, fanned_out_by_quantity, funnel_created
+        - ephemeral means the model isn't materialized, dbt will interpolate the code 
+            from this model into dependent models as a common table expression
+        - this makes debugging harder (no materialized results), so instead you may choose to
+            use a custom schema to hide the materialized results from end users but allow
+            developers to debug the intermediate results
+    - `dim` [conformed dimensions](https://www.kimballgroup.com/data-warehouse-business-intelligence-resources/kimball-techniques/dimensional-modeling-techniques/conformed-dimension/)
+        - conformed dimensions allows the joining of multiple fact tables into a single report
+        - if not conformed, please indicate source system e.g. `dim_xero__customers.sql`
+    - `fct` facts
+    - `mrt` marts
+        - contains heavily denormalized (one-big-table or OBT) models
+        - `models/marts/marketing` or `models/marts/sales`
+        - can result straight from `stg` models or joining `fct` and `dim` tables together
+        - practical advice
+            - sometimes going straight from `stg` to `mrt` is the quickest way to analytics results
+            - however this results in being potentially unable to report across multiple source systems 
+                since their dimensions are not conformed
+            - other times properly modelling conformed dimensions allows for reporting across multiple
+                source systems at once
+            - the downside here is the time investment of a data engineer to build the data model
+            - thus only go straight from `stg` to `mrt` if:
+                1. there's only a single source for this reporting topic
+                2. you need to get results quickly but will remember to come back and refactor
+                    into best practice star schemas later
 
