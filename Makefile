@@ -13,3 +13,6 @@ venv:
 install:
 	pip install -r dev-requirements.txt
 
+chmod:
+	sudo chmod a=rwx ./include
+
