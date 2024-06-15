@@ -3,6 +3,8 @@
 A demo for a simple data warehouse, intended to demonstrate data warehouse architecture,
 project structure, and developer workflow.
 
+![test](./dw-diagrams-2024-06-15-1351.png)
+
 ## Running the Project
 
 ### System Dependencies
