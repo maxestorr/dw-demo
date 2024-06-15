@@ -3,3 +3,4 @@ airflow-provider-duckdb==0.2.0
 duckdb==1.0.0
 pytest==8.2.2
 pandas==2.2.2
+ipython==8.25.0
