@@ -4,3 +4,5 @@ duckdb==1.0.0
 pytest==8.2.2
 pandas==2.2.2
 ipython==8.25.0
+dbt-duckdb==1.8.1
+astronomer-cosmos==1.4.3

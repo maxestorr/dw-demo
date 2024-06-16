@@ -129,6 +129,7 @@ i'm leaning towards schemas for pipeline stages.
             - other times properly modelling conformed dimensions allows for reporting across multiple
                 source systems at once
             - the downside here is the time investment of a data engineer to build the data model
+            - the downside of denormalizing is row-based DB engines don't operate well on wide tables
             - thus only go straight from `stg` to `mrt` if:
                 1. there's only a single source for this reporting topic
                 2. you need to get results quickly but will remember to come back and refactor

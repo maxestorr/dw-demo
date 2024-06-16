@@ -2,6 +2,11 @@
 **/*.db
 **/*.json
 
+# dbt project .gitignore
+**/target/
+**/dbt_packages/
+**/logs/*.log
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
