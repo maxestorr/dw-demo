@@ -1,6 +1,6 @@
 # Developer additions
-**/*.db
-**/*.json
+include/data/*.db
+include/data/*.json
 
 # dbt project .gitignore
 **/target/

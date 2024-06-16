@@ -26,7 +26,7 @@ def dummy_json():
         get all users.
         """
         r = requests.get("https://dummyjson.com/users")
-        with open('include/users.json', 'w') as f:
+        with open('include/data/users.json', 'w') as f:
             json.dump(r.json(), f, indent=4)
 
     @task
@@ -35,7 +35,7 @@ def dummy_json():
         get all posts.
         """
         r = requests.get("https://dummyjson.com/posts")
-        with open('include/posts.json', 'w') as f:
+        with open('include/data/posts.json', 'w') as f:
             json.dump(r.json(), f, indent=4)
 
 
@@ -43,26 +43,26 @@ def dummy_json():
     @task
     def load_users():
         """Load users.json into raw schema in DuckDB"""
-        conn = duckdb.connect("include/datawarehouse.db")
+        conn = duckdb.connect("include/data/datawarehouse.db")
         conn.sql(
             f"""
             CREATE SCHEMA IF NOT EXISTS raw;
             CREATE OR REPLACE TABLE raw.dummy__users AS
             SELECT unnest(users, recursive := true)
-            FROM 'include/users.json';
+            FROM 'include/data/users.json';
             """
         )
 
     @task
     def load_posts():
         """Load users.json into raw schema in DuckDB"""
-        conn = duckdb.connect("include/datawarehouse.db")
+        conn = duckdb.connect("include/data/datawarehouse.db")
         conn.sql(
             f"""
             CREATE SCHEMA IF NOT EXISTS raw;
             CREATE OR REPLACE TABLE raw.dummy__posts AS
             SELECT unnest(posts, recursive := true)
-            FROM 'include/posts.json';
+            FROM 'include/data/posts.json';
             """
         )
 
