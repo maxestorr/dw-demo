@@ -14,5 +14,5 @@ install:
 	pip install -r dev-requirements.txt
 
 chmod:
-	sudo chmod a=rwx ./include
+	sudo chmod -R a=rwx ./include
 
