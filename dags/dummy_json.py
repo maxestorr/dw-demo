@@ -34,15 +34,16 @@ def dummy_json():
         with open(f'include/data/{file_name}.json', 'w') as f:
             json.dump(json_data, f, indent=4)
 
+    # fix: both of these files saved are identical
     endpoints = ['users', 'posts']
     result_1 = save_dummy_json.expand(
         json_data = extract_dummy_json.expand(endpoint=endpoints),
         file_name = endpoints
     )
 
-    # todo: move loading to its own DAG
-    # todo: change load scripts to use same expand method as above
-    # todo: create dbt dags to transform data
+    # TODO: move loading to its own DAG
+    # TODO: change load scripts to use same expand method as above
+    # TODO: create dbt dags to transform data
 
     # # dbt doesn't handle E&L so best to do this in Airflow or using some other framework
     @task
