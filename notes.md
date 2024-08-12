@@ -2,12 +2,24 @@
 
 ### todo
 
+#### housekeeping
+
 - [ ] add basic airflow packages to dev-requirements.txt
 - [ ] add docker (wsl2) installation instructions
-- [ ] dbt integration using astronomer's `cosmos` package
 - [ ] ci/cd tasks
     - [ ] format
     - [ ] lint
+
+#### development
+
+- [ ] dbt integration using astronomer's `cosmos` package
+- [ ] dlt for API ingestion
+    - [ ] first write generator to return pages
+    - [ ] set up dlt pipeline using generator
+        - alternatively dlt has a new declarative API
+    - [ ] integrate dlt into airflow
+        - allow_external_scheduler is a dlt pipeline argument i think
+        - want logging and all else visible through airflow
 
 ### what am i unsure about
 
