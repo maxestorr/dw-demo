@@ -1,0 +1,32 @@
+engine_version: 1
+sources:
+  rest_api:
+    is_dirty: false
+    last_commit_sha: 84a4400a0b600cec64058662e17fe2aaae1c6fee
+    last_commit_timestamp: '2024-08-09T18:31:47+02:00'
+    files:
+      rest_api/config_setup.py:
+        commit_sha: 84a4400a0b600cec64058662e17fe2aaae1c6fee
+        git_sha: 5857b6946162f85b82ee8db08c7014113de95b2a
+        sha3_256: dc10e0c5396e4ceb6bcdca0aaeeff52ba005903ef88ee742e1802db5ab1ce376
+      rest_api/utils.py:
+        commit_sha: 84a4400a0b600cec64058662e17fe2aaae1c6fee
+        git_sha: c1ef181ccac626d63f3f602fc04d42b9fcf4d657
+        sha3_256: 50a448f90ca5b63ba91a9cf254523129086a6f0a16ed203436f6cefbb070f4b1
+      rest_api/exceptions.py:
+        commit_sha: 84a4400a0b600cec64058662e17fe2aaae1c6fee
+        git_sha: 24fd5b31b06e4e8c49e9a46e0588370ff6259f72
+        sha3_256: d712178c2d74b79a71195c0316fa6948d2433414da4150662830782899573b54
+      rest_api/README.md:
+        commit_sha: 84a4400a0b600cec64058662e17fe2aaae1c6fee
+        git_sha: d2878d062a499c1cd8c7105f38e0539f3a9f3211
+        sha3_256: 62b7c1c06ca5d00361c1057c6dcb9cf015a30eff506c4f5cb5c866e31d41fe68
+      rest_api/typing.py:
+        commit_sha: 84a4400a0b600cec64058662e17fe2aaae1c6fee
+        git_sha: 8926adaaac5ad29dea280e0d552628d90c3c324e
+        sha3_256: 4b1c8168619dcb201c107f13edee3a9b2b379d87f5a53387d09f0327a1f49ce1
+      rest_api/__init__.py:
+        commit_sha: 84a4400a0b600cec64058662e17fe2aaae1c6fee
+        git_sha: 0d841c9337aa914a9fe69d92a1534be2da711cc8
+        sha3_256: 068fc7eeb14442a797fd3d0d9e2e7ba270a84b6a54460acd182e2269d66c8dc8
+    dlt_version_constraint: '>=0.5.2'
