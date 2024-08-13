@@ -1,5 +1,9 @@
 # dw-demo
 
+test
+newtest
+newnewtest
+
 A demo for a simple data warehouse, intended to demonstrate data warehouse architecture,
 project structure, and developer workflow.
 
