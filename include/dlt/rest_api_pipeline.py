@@ -2,6 +2,7 @@ import logging
 from typing import Any
 
 import dlt
+# TODO: Airlfow fails to import ./rest_api package
 from rest_api import (
     RESTAPIConfig,
     rest_api_resources,
