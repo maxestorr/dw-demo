@@ -109,7 +109,10 @@ def load_github() -> None:
 
 
 @dlt.source
-def ebird_source(ebird_token: str=dlt.secrets.value) -> Any:
+def ebird_source(
+    ebird_token: str=dlt.secrets.value,
+    region_code: str=dlt.secrets.value
+) -> Any:
     log.debug(f"In ebird_source()")
     config: RESTAPIConfig = {
         "client": {
@@ -125,15 +128,27 @@ def ebird_source(ebird_token: str=dlt.secrets.value) -> Any:
             "write_disposition": "replace",
         },
         "resources": [
+            # TODO: Use the below endpoint for historic loads
+            # https://api.ebird.org/v2/data/obs/{{regionCode}}/historic/{{y}}/{{m}}/{{d}}
             {
                 "name": "top100",
                 "endpoint": {
                     "path": "product/top100/{region_code}/{year}/{month}/{day}",
                     "params": {
+                        # TODO: pass airflow params to select y/m/d
                         "region_code": "CA",
                         "year": "2024",
                         "month": "08",
                         "day": "01",
+                    },
+                },
+            },
+            {
+                "name": "notable_observations",
+                "endpoint": {
+                    "path": "data/obs/{region_code}/recent/notable",
+                    "params": {
+                        "region_code": f"{region_code}",
                     },
                 },
             },
