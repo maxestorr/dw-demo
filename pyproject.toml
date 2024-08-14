@@ -1,0 +1,16 @@
+[tool.pyright]
+include = [
+    "dags",
+    "tests",
+    "include"
+]
+exclude = [
+    "**/__pycache__",
+    "include/data"
+]
+
+defineConstant = { DEBUG = true }
+
+venvPath = "."
+venv = ".venv"
+
