@@ -171,3 +171,4 @@ cython_debug/
 #.idea/
 
 # files ignored from git client are appended to file
+include/data/rest_api_ebird.duckdb
