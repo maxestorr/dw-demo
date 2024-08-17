@@ -29,12 +29,12 @@ default_task_args = {
 
 @dag(
     schedule_interval="@daily",
-    start_date=pendulum.datetime(2023, 8, 14),
+    start_date=pendulum.datetime(2024, 8, 1),
     catchup=False,
     max_active_runs=1,
     default_args=default_task_args,
 )
-def load_data():
+def load_ebird_sources():
     # set `use_data_folder` to True to store temporary data on the `data` bucket. Use only when it does not fit on the local storage
     tasks = PipelineTasksGroup(
         "pipeline_decomposed", use_data_folder=False, wipe_local_data=True
@@ -61,4 +61,4 @@ def load_data():
     )
 
 
-load_data()
+load_ebird_sources()

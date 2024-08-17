@@ -2,12 +2,9 @@ import logging
 from typing import Any
 
 import dlt
-# TODO: Airlfow fails to import ./rest_api package
-from rest_api import (
-    RESTAPIConfig,
-    rest_api_resources,
-)
 
+# TODO: Airlfow fails to import ./rest_api package
+from rest_api import RESTAPIConfig, rest_api_resources
 
 log = logging.getLogger(__name__)
 log.setLevel(level=logging.DEBUG)
@@ -16,8 +13,7 @@ log.debug("Starting rest_api_pipeline.py")
 
 @dlt.source
 def ebird_source(
-    ebird_token: str=dlt.secrets.value,
-    region_code: str=dlt.secrets.value
+    ebird_token: str = dlt.secrets.value, region_code: str = dlt.secrets.value
 ) -> Any:
     log.debug(f"In ebird_source()")
     config: RESTAPIConfig = {
@@ -57,6 +53,7 @@ def ebird_source(
                         "year": "2024",
                         "month": "08",
                         "day": "01",
+                        "detail": "full",
                     },
                 },
             },
@@ -70,7 +67,7 @@ def load_ebird() -> None:
     log.debug("In load_ebird()")
     pipeline = dlt.pipeline(
         pipeline_name="rest_api_ebird",
-        destination='duckdb',
+        destination="duckdb",
         dataset_name="ebird",
     )
 
