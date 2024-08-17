@@ -3,7 +3,6 @@ from typing import Any
 
 import dlt
 from dlt.common import pendulum
-
 from rest_api import RESTAPIConfig, rest_api_resources
 
 log = logging.getLogger(__name__)
@@ -15,10 +14,10 @@ log.debug("Starting rest_api_pipeline.py")
 def ebird_source(
     ebird_token: str = dlt.secrets.value,
     region_code: str = dlt.secrets.value,
-    date: pendulum.Date = pendulum.today(),
+    date=pendulum.today().strftime("%Y-%m-%d"),
 ) -> Any:
     log.debug(f"In ebird_source()")
-    year, month, day = (date.year, date.month, date.day)
+    year, month, day = date.split("-")
 
     config: RESTAPIConfig = {
         "client": {

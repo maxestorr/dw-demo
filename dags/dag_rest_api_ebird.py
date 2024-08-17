@@ -1,3 +1,4 @@
+import logging
 from datetime import timedelta
 
 import dlt
@@ -35,6 +36,10 @@ default_task_args = {
     default_args=default_task_args,
 )
 def load_ebird_sources():
+    log = logging.getLogger(__name__)
+    log.info(
+        f"Running pipeline {{task_id}} for date {{ execution_date.strftime('%Y-%m-%d') }}"
+    )
     # set `use_data_folder` to True to store temporary data on the `data` bucket. Use only when it does not fit on the local storage
     tasks = PipelineTasksGroup(
         "pipeline_decomposed", use_data_folder=False, wipe_local_data=True
@@ -53,7 +58,7 @@ def load_ebird_sources():
     # create the source, the "serialize" decompose option will converts dlt resources into Airflow tasks. use "none" to disable it
     tasks.add_run(
         pipeline,
-        ebird_source(),
+        ebird_source(date="{{ execution_date.strftime('%Y-%m-%d') }}"),
         decompose="serialize",
         trigger_rule="all_done",
         retries=0,
