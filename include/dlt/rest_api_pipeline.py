@@ -2,8 +2,8 @@ import logging
 from typing import Any
 
 import dlt
+from dlt.common import pendulum
 
-# TODO: Airlfow fails to import ./rest_api package
 from rest_api import RESTAPIConfig, rest_api_resources
 
 log = logging.getLogger(__name__)
@@ -13,9 +13,13 @@ log.debug("Starting rest_api_pipeline.py")
 
 @dlt.source
 def ebird_source(
-    ebird_token: str = dlt.secrets.value, region_code: str = dlt.secrets.value
+    ebird_token: str = dlt.secrets.value,
+    region_code: str = dlt.secrets.value,
+    date: pendulum.Date = pendulum.today(),
 ) -> Any:
     log.debug(f"In ebird_source()")
+    year, month, day = (date.year, date.month, date.day)
+
     config: RESTAPIConfig = {
         "client": {
             "base_url": "https://api.ebird.org/v2/",
@@ -37,9 +41,9 @@ def ebird_source(
                     "params": {
                         # TODO: pass airflow params to select y/m/d
                         "region_code": f"{region_code}",
-                        "year": "2024",
-                        "month": "08",
-                        "day": "01",
+                        "year": year,
+                        "month": month,
+                        "day": day,
                     },
                 },
             },
@@ -50,9 +54,9 @@ def ebird_source(
                     "params": {
                         # TODO: pass airflow params to select y/m/d
                         "region_code": f"{region_code}",
-                        "year": "2024",
-                        "month": "08",
-                        "day": "01",
+                        "year": year,
+                        "month": month,
+                        "day": day,
                         "detail": "full",
                     },
                 },
