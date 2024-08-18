@@ -29,7 +29,7 @@ default_task_args = {
 
 
 @dag(
-    schedule_interval="@daily",
+    schedule="@daily",
     start_date=pendulum.datetime(2024, 8, 1),
     catchup=False,
     max_active_runs=1,
