@@ -23,16 +23,19 @@ default_task_args = {
     max_active_runs=1,
     default_args=default_task_args,
 )
-def ebird_taskflow_test():
+def ebird_dag():
     @task(task_id="print_the_context")
-    def print_context(ds=None, **kwargs):
+    def print_context(ds = None, **context):
         """Print the Airflow context and ds variable from the context."""
-        pprint(kwargs)
+        pprint(context)
         print(ds)
         return "Whatever you return gets printed in the logs"
 
+    # TODO: Split each dlt source into its own task in a joined task group
+    #   the dlt.helpers.airflow_helper.PipelineTasksGroup did this for us
+    #   but wouldn't read ds from context
     @task(task_id="load_ebird_source")
-    def load_ebird_source(ds=None):
+    def load_ebird_sources(ds = None):
         from include.dlt.rest_api_pipeline import ebird_source
 
         pipeline = dlt.pipeline(
@@ -46,7 +49,7 @@ def ebird_taskflow_test():
         print(load_info)
 
     print_context()
-    load_ebird_source()
+    load_ebird_sources()
 
 
-ebird_taskflow_test()
+ebird_dag()

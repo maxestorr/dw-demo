@@ -14,7 +14,7 @@ log.debug("Starting rest_api_pipeline.py")
 def ebird_source(
     ebird_token: str = dlt.secrets.value,
     region_code: str = dlt.secrets.value,
-    date=pendulum.today().strftime("%Y-%m-%d"),
+    date: str = pendulum.today().strftime("%Y-%m-%d"),
 ) -> Any:
     log.debug(f"In ebird_source()")
     year, month, day = date.split("-")
